@@ -1,16 +1,14 @@
-import os
+import pyaudio
+import wave
+audio
+# for data transformation
+import numpy as np
+# for visualizing the data
 import matplotlib.pyplot as plt
-import speech_recognition as sr
-r1=sr.Recognizer()
-with sr.Microphone() as mp:
-    print("speek")
-    audio_fpath = r1.listen(mp)
-print(type(audio_fpath))
-get = r1.recognize_google(audio_fpath)
-print(get)
-print(audio_fpath)
-import librosa
-import librosa.display
-import IPython.display as ipd
-audio_clips = os.listdir(audio_fpath)
-print("No. of .wav files in audio folder = ",len(audio_clips))
+# for opening the media file
+import scipy.io.wavfile as wavfile
+Fs, aud = wavfile.read('pearl_harbor.wav')
+# select left channel only
+aud = aud[:,0]
+# trim the first 125 seconds
+first = aud[:int(Fs*125)]
