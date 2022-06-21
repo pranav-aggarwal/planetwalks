@@ -1,14 +1,11 @@
-import pyaudio
-import wave
-audio
-# for data transformation
-import numpy as np
-# for visualizing the data
-import matplotlib.pyplot as plt
-# for opening the media file
-import scipy.io.wavfile as wavfile
-Fs, aud = wavfile.read('pearl_harbor.wav')
-# select left channel only
-aud = aud[:,0]
-# trim the first 125 seconds
-first = aud[:int(Fs*125)]
+import sounddevice
+from scipy.io.wavfile import write
+
+fps=44100
+duration=1
+print("record....")
+recording=sounddevice.rec(int(duration*fps),samplerate=fps,channels=2)
+sounddevice.wait()
+print("done!")
+
+write("output.wav",fps,recording)
